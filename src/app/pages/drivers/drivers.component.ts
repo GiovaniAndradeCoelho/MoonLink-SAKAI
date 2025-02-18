@@ -136,4 +136,23 @@ export class DriversComponent implements OnInit {
     this.selectedDriver = driver;
     this.displayDialog = true;
   }
+
+  // Métodos para a tabela de veículos
+
+  openAddVehicleDialog() {
+    // Implemente a lógica para abrir o diálogo de adição de veículo.
+    console.log("Abrir diálogo para adicionar veículo");
+  }
+
+  onVehicleFilter(event: Event, table: Table) {
+    const value = (event.target as HTMLInputElement).value;
+    table.filterGlobal(value, 'contains');
+  }
+
+  removeVehicle(vehicle: any) {
+    if (!this.selectedDriver || !this.selectedDriver.vehicles) return;
+    // Removendo veículo do array local; em produção, deve-se chamar uma API para persistir a remoção.
+    this.selectedDriver.vehicles = this.selectedDriver.vehicles.filter((v: any) => v.id !== vehicle.id);
+    console.log(`Veículo removido: ${vehicle.id}`);
+  }
 }

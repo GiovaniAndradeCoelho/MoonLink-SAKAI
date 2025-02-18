@@ -96,17 +96,59 @@
                 </div>
             </p-tabPanel>
             <p-tabPanel header="Veículos">
-                <div *ngIf="selectedDriver && selectedDriver.vehicles && selectedDriver.vehicles.length > 0">
-                    <ul>
-                        <li *ngFor="let vehicle of selectedDriver.vehicles">
-                            {{ vehicle.plate }} - {{ vehicle.model }}
-                        </li>
-                    </ul>
-                </div>
-                <div *ngIf="!selectedDriver?.vehicles || selectedDriver.vehicles.length === 0">
-                    <p>Nenhum veículo cadastrado.</p>
-                </div>
+                <p-table #vehicleTable [value]="selectedDriver?.vehicles" dataKey="id" [paginator]="true" [rows]="5"
+                    [globalFilterFields]="['plate', 'brand', 'model']">
+                    <!-- Caption: Botão para adicionar veículo e campo de busca -->
+                    <ng-template pTemplate="caption">
+                        <div class="flex">
+                            <p-button icon="pi pi-plus" outlined
+                                (click)="openAddVehicleDialog()"></p-button>
+                            <p-iconfield iconPosition="left" class="ml-auto">
+                                <p-inputicon>
+                                    <i class="pi pi-search"></i>
+                                </p-inputicon>
+                                <input pInputText type="text" (input)="onVehicleFilter($event, vehicleTable)"
+                                    placeholder="Pesquisar veículo" />
+                            </p-iconfield>
+                        </div>
+                    </ng-template>
+
+                    <!-- Cabeçalho -->
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Placa</th>
+                            <th>Marca</th>
+                            <th>Modelo</th>
+                            <th>Ano</th>
+                            <th>Capacidade</th>
+                            <th>Ações</th>
+                        </tr>
+                    </ng-template>
+
+                    <!-- Corpo -->
+                    <ng-template pTemplate="body" let-vehicle>
+                        <tr>
+                            <td>{{ vehicle.plate }}</td>
+                            <td>{{ vehicle.brand }}</td>
+                            <td>{{ vehicle.model }}</td>
+                            <td>{{ vehicle.year }}</td>
+                            <td>{{ vehicle.capacity }}</td>
+                            <td>
+                                <p-button icon="pi pi-trash" outlined severity="danger" 
+                                    (click)="removeVehicle(vehicle)"></p-button>
+                            </td>
+                        </tr>
+                    </ng-template>
+
+                    <!-- Mensagem vazia -->
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td colspan="6">Nenhum veículo encontrado.</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
             </p-tabPanel>
+
             <p-tabPanel header="Transportes">
                 <div *ngIf="selectedDriver && selectedDriver.transports && selectedDriver.transports.length > 0">
                     <ul>
