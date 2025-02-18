@@ -14,6 +14,9 @@ import { TagModule } from 'primeng/tag';
 import { Customer, CustomerService, Representative } from '../service/customer.service';
 import { FormsModule } from '@angular/forms';
 import { AvatarModule } from 'primeng/avatar';
+import { DialogModule } from 'primeng/dialog';
+import { TabViewModule } from 'primeng/tabview';
+
 @Component({
   selector: 'app-drivers',
   standalone: true,
@@ -32,6 +35,8 @@ import { AvatarModule } from 'primeng/avatar';
     InputIconModule,
     SliderModule,
     FormsModule,
+    DialogModule,
+    TabViewModule,
     CommonModule
   ],
   templateUrl: './drivers.component.html',
@@ -40,7 +45,7 @@ import { AvatarModule } from 'primeng/avatar';
 })
 export class DriversComponent implements OnInit {
 
-  drivers: Array<any> = new Array<any>;
+  drivers: Array<any> = new Array<any>();
 
   statuses!: any[];
 
@@ -49,6 +54,10 @@ export class DriversComponent implements OnInit {
   activityValues: number[] = [0, 100];
 
   searchValue: string | undefined;
+
+  // Propriedades para o dialog modal
+  displayDialog: boolean = false;
+  selectedDriver: any = null;
 
   constructor(private customerService: CustomerService) { }
 
@@ -61,7 +70,8 @@ export class DriversComponent implements OnInit {
       updatedAt: true,
       approvalStatus: true,
       vehicles: true,
-      email: true
+      email: true,
+      transports: true // assumindo que "transports" também faz parte dos dados do motorista
     };
 
     const selectedFields = (Object.keys(fields) as (keyof typeof fields)[]).filter(field => fields[field]);
@@ -70,15 +80,15 @@ export class DriversComponent implements OnInit {
     this.loading = true;
     const response = await fetch(`http://localhost:6006/drivers?fields=${encodeURIComponent(queryString)}`, {
       method: 'GET',
-    })
+    });
 
-    this.loading = false
+    this.loading = false;
     const result = await response.json();
     this.drivers = result;
   }
 
   async ngOnInit() {
-    await this.fetchDrivers()
+    await this.fetchDrivers();
   }
 
   clear(table: Table) {
@@ -115,21 +125,15 @@ export class DriversComponent implements OnInit {
   }
 
   formatDate(date: any): string {
-    return `${new Date(date).toLocaleString('pt-BR')}`
+    return `${new Date(date).toLocaleString('pt-BR')}`;
   }
 
   countVehicles(data: Array<any> | undefined): number {
     return data?.length || 0;
   }
 
-  driverStatus(string: any) {
-    switch (string) {
-      case 'APPROVED':
-        return 'success'
-
-      default:
-        return 'error'
-    }
+  openDriverDialog(driver: any) {
+    this.selectedDriver = driver;
+    this.displayDialog = true;
   }
-
 }
