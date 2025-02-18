@@ -1,124 +1,124 @@
 <div class="card">
     <p-table #dt1 [value]="drivers" dataKey="id" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading"
-      [paginator]="true" [globalFilterFields]="['name', 'phone', 'createdAt', 'approvalStatus']">
-      <!-- Caption -->
-      <ng-template pTemplate="caption">
-        <div class="flex">
-          <p-button label="Limpar" outlined icon="pi pi-filter-slash" (click)="clear(dt1)"></p-button>
-          <p-iconfield iconPosition="left" class="ml-auto">
-            <p-inputicon>
-              <i class="pi pi-search"></i>
-            </p-inputicon>
-            <input pInputText type="text" (input)="onGlobalFilter($event, dt1)" placeholder="Pesquisar" />
-          </p-iconfield>
-        </div>
-      </ng-template>
-  
-      <!-- Header -->
-      <ng-template pTemplate="header">
-        <tr>
-          <th style="min-width:15rem">
-            <div class="flex items-center">
-              Nome
-              <p-columnFilter type="text" field="name" display="menu"></p-columnFilter>
+        [paginator]="true" [globalFilterFields]="['name', 'phone', 'createdAt', 'approvalStatus']">
+        <!-- Caption -->
+        <ng-template pTemplate="caption">
+            <div class="flex">
+                <p-button label="Limpar" outlined icon="pi pi-filter-slash" (click)="clear(dt1)"></p-button>
+                <p-iconfield iconPosition="left" class="ml-auto">
+                    <p-inputicon>
+                        <i class="pi pi-search"></i>
+                    </p-inputicon>
+                    <input pInputText type="text" (input)="onGlobalFilter($event, dt1)" placeholder="Pesquisar" />
+                </p-iconfield>
             </div>
-          </th>
-          <th style="min-width:15rem">
-            <div class="flex items-center">
-              Contato
-              <p-columnFilter type="text" field="phone" display="menu"></p-columnFilter>
-            </div>
-          </th>
-          <th style="min-width:15rem">
-            <div class="flex items-center">
-              Data de Cadastro
-              <p-columnFilter type="date" field="createdAt" display="menu"></p-columnFilter>
-            </div>
-          </th>
-          <th style="min-width:15rem">
-            <div class="flex items-center">
-              Status
-              <p-columnFilter type="text" field="approvalStatus" display="menu"></p-columnFilter>
-            </div>
-          </th>
-          <th style="min-width:15rem">
-            <div class="flex items-center">
-              E-mail
-              <p-columnFilter type="text" field="email" display="menu"></p-columnFilter>
-            </div>
-          </th>
-          <th style="min-width:10rem">
-            <div class="flex items-center">
-              Ações
-            </div>
-          </th>
-        </tr>
-      </ng-template>
-  
-      <!-- Body -->
-      <ng-template pTemplate="body" let-driver>
-        <tr>
-          <td style="display: flex; align-items: center;">
-            <p-avatar image="" icon="pi pi-user" size="large" shape="circle"></p-avatar>
-            <span style="margin-left: 0.5rem;">{{ driver.name }}</span>
-          </td>
-          <td>{{ driver.phone }}</td>
-          <td>{{ formatDate(driver.createdAt) }}</td>
-          <td>
-            <p-tag *ngIf="driver.approvalStatus === 'PENDING'" value="Pendente" severity="warn"></p-tag>
-            <p-tag *ngIf="driver.approvalStatus === 'APPROVED'" value="Aprovado" severity="success"></p-tag>
-            <p-tag *ngIf="driver.approvalStatus === 'REJECTED'" value="Rejeitado" severity="danger"></p-tag>
-          </td>
-          <td>{{ driver.email }}</td>
-          <td>
-            <p-button label="Detalhes" icon="pi pi-eye" (click)="openDriverDialog(driver)"></p-button>
-          </td>
-        </tr>
-      </ng-template>
-  
-      <ng-template pTemplate="emptymessage">
-        <tr>
-          <td colspan="8">Nenhum motorista encontrado.</td>
-        </tr>
-      </ng-template>
+        </ng-template>
+
+        <!-- Header -->
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="min-width:15rem">
+                    <div class="flex items-center">
+                        Nome
+                        <p-columnFilter type="text" field="name" display="menu"></p-columnFilter>
+                    </div>
+                </th>
+                <th style="min-width:15rem">
+                    <div class="flex items-center">
+                        Contato
+                        <p-columnFilter type="text" field="phone" display="menu"></p-columnFilter>
+                    </div>
+                </th>
+                <th style="min-width:15rem">
+                    <div class="flex items-center">
+                        Data de Cadastro
+                        <p-columnFilter type="date" field="createdAt" display="menu"></p-columnFilter>
+                    </div>
+                </th>
+                <th style="min-width:15rem">
+                    <div class="flex items-center">
+                        Status
+                        <p-columnFilter type="text" field="approvalStatus" display="menu"></p-columnFilter>
+                    </div>
+                </th>
+                <th style="min-width:15rem">
+                    <div class="flex items-center">
+                        E-mail
+                        <p-columnFilter type="text" field="email" display="menu"></p-columnFilter>
+                    </div>
+                </th>
+                <th style="min-width:10rem">
+                    <div class="flex items-center">
+                        Ações
+                    </div>
+                </th>
+            </tr>
+        </ng-template>
+
+        <!-- Body -->
+        <ng-template pTemplate="body" let-driver>
+            <tr>
+                <td style="display: flex; align-items: center;">
+                    <p-avatar image="" icon="pi pi-user" size="large" shape="circle"></p-avatar>
+                    <span style="margin-left: 0.5rem;">{{ driver.name }}</span>
+                </td>
+                <td>{{ driver.phone }}</td>
+                <td>{{ formatDate(driver.createdAt) }}</td>
+                <td>
+                    <p-tag *ngIf="driver.approvalStatus === 'PENDING'" value="Pendente" severity="warn"></p-tag>
+                    <p-tag *ngIf="driver.approvalStatus === 'APPROVED'" value="Aprovado" severity="success"></p-tag>
+                    <p-tag *ngIf="driver.approvalStatus === 'REJECTED'" value="Rejeitado" severity="danger"></p-tag>
+                </td>
+                <td>{{ driver.email }}</td>
+                <td>
+                    <p-button label="Detalhes" icon="pi pi-eye" outlined (click)="openDriverDialog(driver)"></p-button>
+                </td>
+            </tr>
+        </ng-template>
+
+        <!-- Empty Message -->
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="8">Nenhum motorista encontrado.</td>
+            </tr>
+        </ng-template>
     </p-table>
-  
-    <p-dialog header="Detalhes do Motorista" [(visible)]="displayDialog" modal="true" [style]="{width: '70vw'}" [baseZIndex]="10000" [closable]="true">
-      <p-tabView>
-        <p-tabPanel header="Informações do Motorista">
-          <div *ngIf="selectedDriver">
-            <p><strong>Nome:</strong> {{ selectedDriver.name }}</p>
-            <p><strong>Contato:</strong> {{ selectedDriver.phone }}</p>
-            <p><strong>E-mail:</strong> {{ selectedDriver.email }}</p>
-          </div>
-        </p-tabPanel>
-        <p-tabPanel header="Veículos">
-          <!-- Conteúdo para veículos -->
-          <div *ngIf="selectedDriver && selectedDriver.vehicles && selectedDriver.vehicles.length > 0">
-            <ul>
-              <li *ngFor="let vehicle of selectedDriver.vehicles">
-                {{ vehicle.plate }} - {{ vehicle.model }}
-              </li>
-            </ul>
-          </div>
-          <div *ngIf="!selectedDriver?.vehicles || selectedDriver.vehicles.length === 0">
-            <p>Nenhum veículo cadastrado.</p>
-          </div>
-        </p-tabPanel>
-        <p-tabPanel header="Transportes">
-          <!-- Conteúdo para transportes -->
-          <div *ngIf="selectedDriver && selectedDriver.transports && selectedDriver.transports.length > 0">
-            <ul>
-              <li *ngFor="let transport of selectedDriver.transports">
-                {{ transport.description }} - {{ formatDate(transport.date) }}
-              </li>
-            </ul>
-          </div>
-          <div *ngIf="!selectedDriver?.transports || selectedDriver.transports.length === 0">
-            <p>Nenhum transporte relacionado.</p>
-          </div>
-        </p-tabPanel>
-      </p-tabView>
+
+    <!-- Dialog Modal -->
+    <p-dialog header="Detalhes do Motorista" [(visible)]="displayDialog" modal="true"
+        [style]="{ width: '60vw', height: '80vh' }" [baseZIndex]="10000" [closable]="true">
+        <p-tabView>
+            <p-tabPanel header="Informações do Motorista">
+                <div *ngIf="selectedDriver">
+                    <p><strong>Nome:</strong> {{ selectedDriver.name }}</p>
+                    <p><strong>Contato:</strong> {{ selectedDriver.phone }}</p>
+                    <p><strong>E-mail:</strong> {{ selectedDriver.email }}</p>
+                </div>
+            </p-tabPanel>
+            <p-tabPanel header="Veículos">
+                <div *ngIf="selectedDriver && selectedDriver.vehicles && selectedDriver.vehicles.length > 0">
+                    <ul>
+                        <li *ngFor="let vehicle of selectedDriver.vehicles">
+                            {{ vehicle.plate }} - {{ vehicle.model }}
+                        </li>
+                    </ul>
+                </div>
+                <div *ngIf="!selectedDriver?.vehicles || selectedDriver.vehicles.length === 0">
+                    <p>Nenhum veículo cadastrado.</p>
+                </div>
+            </p-tabPanel>
+            <p-tabPanel header="Transportes">
+                <div *ngIf="selectedDriver && selectedDriver.transports && selectedDriver.transports.length > 0">
+                    <ul>
+                        <li *ngFor="let transport of selectedDriver.transports">
+                            {{ transport.description }} - {{ formatDate(transport.date) }}
+                        </li>
+                    </ul>
+                </div>
+                <div *ngIf="!selectedDriver?.transports || selectedDriver.transports.length === 0">
+                    <p>Nenhum transporte relacionado.</p>
+                </div>
+            </p-tabPanel>
+        </p-tabView>
     </p-dialog>
-  </div>
-  
+</div>
