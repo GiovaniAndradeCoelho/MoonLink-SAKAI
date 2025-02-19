@@ -11,7 +11,6 @@ import { DropdownModule } from 'primeng/dropdown';
 import { SliderModule } from 'primeng/slider';
 import { TableModule, Table } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
-import { Customer, CustomerService, Representative } from '../service/customer.service';
 import { FormsModule } from '@angular/forms';
 import { AvatarModule } from 'primeng/avatar';
 @Component({
@@ -36,7 +35,7 @@ import { AvatarModule } from 'primeng/avatar';
   ],
   templateUrl: './drivers.component.html',
   styleUrls: ['./drivers.component.scss'],
-  providers: [CustomerService]
+  providers: []
 })
 export class DriversComponent implements OnInit {
 
@@ -50,7 +49,7 @@ export class DriversComponent implements OnInit {
 
   searchValue: string | undefined;
 
-  constructor(private customerService: CustomerService) { }
+  constructor() { }
 
   private async fetchDrivers() {
     const fields = {
